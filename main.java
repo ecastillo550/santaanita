@@ -8,8 +8,13 @@ class Santaanita {
 		String database[][] = new String[20][13]; //estructura de datos con la infromacion de las casas (12 meses y el apellido)
 		String mesesString[] = new String[] {"Enero", "Febero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
+		int casa;
+		int mes;
+
+		cargarDatosDummy(database);
 		do { //ciclo de ejecucion del programa
 			System.out.println("escriba 'm' para ver el menu o 'q' para salir");
+			//System.out.println(getMenu());
 			userInput = Lectura.readChar();
 
 			switch (userInput) {
@@ -22,11 +27,20 @@ class Santaanita {
 					break;
 
 				case 'a':
-					System.out.println("Alta de info");
-					break;
+					System.out.println("escribe el numero de casa:");
+					casa = Lectura.readInt();
+					System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
+					mes = Lectura.readInt();
+					if (mes == 13) {
+						cargarFamilia(database, casa, mesesString);
+					} else if(mes == 0) {
+						cargarNombreFamilia(database, casa, mes);
+					} else if(mes > 0 && mes <= 12) {
+						cargarMesFamilia(database, casa, mes, mesesString);
+					}else {
+						System.out.println("Mes invalido");
+					}
 
-				case 'l':
-					cargarDatosDummy(database);
 					break;
 
 				case '1':
@@ -50,6 +64,9 @@ class Santaanita {
 
 		menu = "Dar de alta informacion: a\n";
 		menu += "Reporte anual: 1\n";
+		menu += "Reporte por familia: 2\n";
+
+		menu += "Terminar el programa: q\n";
 
 		return menu;
 	}
@@ -76,6 +93,28 @@ class Santaanita {
 		}
 	}
 
+	public static void cargarFamilia(String database[][], int casa, String mesesString[]) {
+		for (int mes = 0; mes <= 12 ; mes++) {
+			if (mes == 0) {
+				System.out.print("Ingrese el nombre de la familia: ");
+				database[casa][mes] = Lectura.readString();
+			} else {
+				System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
+				database[casa][mes] = Lectura.readString();
+			}
+		}
+	}
+
+	public static void cargarMesFamilia(String database[][], int casa, int mes, String mesesString[]) {
+			System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
+			database[casa][mes] = Lectura.readString();
+	}
+
+	public static void cargarNombreFamilia(String database[][], int casa, int mes) {
+			System.out.print("Ingrese el nombre de la familia: ");
+			database[casa][mes] = Lectura.readString();
+	}
+
 	public static void cargarDatosDummy(String database[][]) {
 		database[0][0] = "familia";
 
@@ -89,20 +128,5 @@ class Santaanita {
 			}
 		}
 	}
-
-	// public static void cargarMeses(String mesesString[]) {
-	// 	mesesString[0] = "Enero";
-	// 	mesesString[1] = "Febrero";
-	// 	mesesString[2] = "Marzo";
-	// 	mesesString[3] = "Enero";
-	// 	mesesString[4] = "Enero";
-	// 	mesesString[5] = "Enero";
-	// 	mesesString[6] = "Enero";
-	// 	mesesString[7] = "Enero";
-	// 	mesesString[8] = "Enero";
-	// 	mesesString[9] = "Enero";
-	// 	mesesString[10] = "Enero";
-	// 	mesesString[11] = "Enero";
-	// }
 }
 
