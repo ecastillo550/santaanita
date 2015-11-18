@@ -30,6 +30,7 @@ class Santaanita {
 					System.out.println("escribe el numero de casa:");
 					casa = Lectura.readInt();
 					System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
+
 					mes = Lectura.readInt();
 					if (mes == 13) {
 						cargarFamilia(database, casa, mesesString);
