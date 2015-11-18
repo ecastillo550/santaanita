@@ -89,10 +89,12 @@ class Santaanita {
 			if (mes == 0) {
 				System.out.println("\nFamilia: " + database[casa][mes]);
 			} else {
-				System.out.println(mesesString[mes-1] + "\t \t$" + database[casa][mes]);
+				System.out.println(mesesString[mes-1] + "\t \t$" + database[casa][mes] + "\t deuda: " + (9500 -  Double.parseDouble(database[casa][mes])));
 			}
 		}
 	}
+
+	/////////   --- Double.parseDouble(database[casa][mes]) recordar
 
 	public static void cargarFamilia(String database[][], int casa, String mesesString[]) {
 		for (int mes = 0; mes <= 12 ; mes++) {
