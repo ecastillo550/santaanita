@@ -52,7 +52,23 @@ class Santaanita {
 					System.out.println("escribe el numero de casa que desea ver:");
 					reporteFamilia(database, Lectura.readInt(), mesesString);
 					break;
-
+				case '3':
+					System.out.println("escribe el numero de casa que desea ver:");
+					casa=Lectura.readInt();
+					deudaFamilia(database, casa, mes);
+					break;
+				case '4':
+					montoAnio(database);
+					break;
+				case '5':
+					montoMes(database);
+					break;
+				case '6':
+					deudaMontoAnio(database, casa, mes);
+					break;
+				case '7':
+					deudaMontoMes(database);
+					break;
 				default:
 					System.out.println(getMenu());
 					break;
