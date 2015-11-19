@@ -19,65 +19,65 @@ class Santaanita {
 
 			switch (userInput) {
 				case 'm':
-				System.out.println(getMenu());
-				break;
+					System.out.println(getMenu());
+					break;
 
 				case 'q':
-				System.out.println("Hasta luego");
-				break;
+					System.out.println("Hasta luego");
+					break;
 
 				case 'a':
-				System.out.println("escribe el numero de familia:");
-				familia = Lectura.readInt();
-				System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
+					System.out.println("escribe el numero de familia:");
+					familia = Lectura.readInt();
+					System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
 
-				mes = Lectura.readInt();
-				if (mes == 13) {
-					cargarFamilia(database, familia, mesesString);
-				} else if(mes == 0) {
-					cargarNombreFamilia(database, familia, mes);
-				} else if(mes > 0 && mes <= 12) {
-					cargarMesFamilia(database, familia, mes, mesesString);
-				}else {
-					System.out.println("Mes invalido");
-				}
+					mes = Lectura.readInt();
+					if (mes == 13) {
+						cargarFamilia(database, familia, mesesString);
+					} else if(mes == 0) {
+						cargarNombreFamilia(database, familia, mes);
+					} else if(mes > 0 && mes <= 12) {
+						cargarMesFamilia(database, familia, mes, mesesString);
+					}else {
+						System.out.println("Mes invalido");
+					}
 
-				break;
+					break;
 
 				case '1':
-				reporteAnual(database, mesesString);
-				break;
+					reporteAnual(database, mesesString);
+					break;
 
 				case '2':
-				reporteFamilia(database, mesesString);
-				break;
+					reporteFamilia(database, mesesString);
+					break;
 
 				case '3':
-				deudaFamilia(database, familia, mes);
-				break;
+					deudaFamilia(database, familia, mes);
+					break;
 
 				case '4':
-				montoAnio(database, familia, mes);
-				break;
+					montoAnio(database, familia, mes);
+					break;
 
 				case '5':
-				montoMes(database, familia, mes);
-				break;
+					montoMes(database, familia, mes);
+					break;
 
 				case '6':
-				deudaMontoAnio(database, familia, mes);
-				break;
+					deudaMontoAnio(database, familia, mes);
+					break;
 
 				case '7':
-				deudaMontoMes(database, familia, mes);
-				break;
+					deudaMontoMes(database, familia, mes);
+					break;
 
 				case '8':
-				montoActual(database, familia, mes);
-				break;
+					montoActual(database, familia, mes);
+					break;
 				default:
-				System.out.println(getMenu());
-				break;
+					System.out.println(getMenu());
+					break;
 			}
 		} while (userInput != 'q');
 	}
@@ -93,7 +93,7 @@ class Santaanita {
 		menu+="Monto recaudado en el mes: 5\n";
 		menu+="Deuda total del año: 6\n";
 		menu+="Deuda total del mes: 7\n";
-		menu+="Monto pagado a la fecha por familia: 7\n";
+		menu+="Monto pagado a la fecha por familia: 8\n";
 
 		menu += "Terminar el programa: q\n";
 
