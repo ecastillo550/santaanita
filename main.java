@@ -53,7 +53,7 @@ class Santaanita {
 					break;
 
 				case '3':
-					deudaFamilia(database, familia, mes);
+					deudaFamilia(database, familia);
 					break;
 
 				case '4':
@@ -75,6 +75,11 @@ class Santaanita {
 				case '8':
 					montoActual(database, familia, mes);
 					break;
+
+				case '9':
+					deudaFamilias(database);
+					break;
+
 				default:
 					System.out.println(getMenu());
 					break;
@@ -94,6 +99,10 @@ class Santaanita {
 		menu+="Deuda total del año: 6\n";
 		menu+="Deuda total del mes: 7\n";
 		menu+="Monto pagado a la fecha por familia: 8\n";
+
+		menu+="Familias con deuda: 9\n";
+		menu+="Corte del ano: 0\n";
+
 
 		menu += "Terminar el programa: q\n";
 
@@ -168,18 +177,32 @@ class Santaanita {
 		}
 	}
 
-	public static void deudaFamilia(String database[][],int familia, int mes){
+	public static void deudaFamilias(String database[][]){
+		double deuda=0;
+		for(int familia=0;familia<20;familia++) {
+			deuda=0;
+			for(int mes=1;mes<13;mes++) {
+				if(Double.parseDouble(database[familia][mes])<9500)
+				deuda+= (9500-Double.parseDouble(database[familia][mes]));
+			}
+			System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
+		}
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
+	}
+
+	public static void deudaFamilia(String database[][],int familia){
 		System.out.println("escribe el numero de familia que desea ver:");
 		familia=Lectura.readInt();
 		double deuda=0;
-		for(mes=1;mes<13;mes++) {
+		for(int mes=1;mes<13;mes++) {
 				if(Double.parseDouble(database[familia][mes])<9500)
 				deuda+= (9500-Double.parseDouble(database[familia][mes]));
-
 		}
 		System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
 		java.util.Date fecha = new Date();
 		System.out.println("\n\t"+fecha);
+
 	}
 
 	public static void montoAnio(String database[][],int familia, int mes) {
