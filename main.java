@@ -82,6 +82,11 @@ class Santaanita {
 		menu = "Dar de alta informacion: a\n";
 		menu += "Reporte anual: 1\n";
 		menu += "Reporte por familia: 2\n";
+		menu += "Deudas por familia: 3\n";
+		menu += "Monto recaudado en el anio: 4\n";
+		menu += "Monto recaudado en el mes: 5\n";
+		menu += "Deudas total del anio en el anio: 6\n";
+		menu += "Deudas total en el mes: 7\n";
 
 		menu += "Terminar el programa: q\n";
 
