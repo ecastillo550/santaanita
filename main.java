@@ -80,6 +80,10 @@ class Santaanita {
 					deudaFamilias(database);
 					break;
 
+				case '0':
+					corteAnual(database);
+					break;
+
 				default:
 					System.out.println(getMenu());
 					break;
@@ -171,10 +175,31 @@ class Santaanita {
 				if (mes == 0) {
 					database[familia][mes] = "familia " + familia;
 				} else {
-					database[familia][mes] = "0";
+					if (familia == 15) {
+						database[familia][mes] = "9500";
+					} else {
+						database[familia][mes] = "0";
+					}
 				}
 			}
 		}
+	}
+
+	public static void corteAnual(String database[][]){
+		double deuda=0;
+		for(int familia=0;familia<20;familia++) {
+			deuda=0;
+			for(int mes=1;mes<13;mes++) {
+				if(Double.parseDouble(database[familia][mes])<9500)
+				deuda+= (9500-Double.parseDouble(database[familia][mes]));
+			}
+			if (deuda > 0) {
+				System.out.println("\nLa familia "+database[familia][0]+" no liquido, su deuda actual: "+deuda);
+				System.out.println("Sus recargos: $5,000. Total: "+(deuda+5000));
+			}
+		}
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
 	public static void deudaFamilias(String database[][]){
@@ -185,7 +210,9 @@ class Santaanita {
 				if(Double.parseDouble(database[familia][mes])<9500)
 				deuda+= (9500-Double.parseDouble(database[familia][mes]));
 			}
-			System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
+			if (deuda > 0) {
+				System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
+			}
 		}
 		java.util.Date fecha = new Date();
 		System.out.println("\n\t"+fecha);
