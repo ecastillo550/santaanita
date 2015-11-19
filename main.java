@@ -1,5 +1,6 @@
 import java.io.*;
 import java.text.*;
+import java.util.Date;
 
 class Santaanita {
 	public static void main(String args[]) {
@@ -8,9 +9,8 @@ class Santaanita {
 		String database[][] = new String[20][13]; //estructura de datos con la infromacion de las casas (12 meses y el apellido)
 		String mesesString[] = new String[] {"Enero", "Febero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
-		int casa;
-		int mes;
-
+		int familia=0;
+		int mes=0;
 		cargarDatosDummy(database);
 		do { //ciclo de ejecucion del programa
 			System.out.println("escriba 'm' para ver el menu o 'q' para salir");
@@ -19,59 +19,65 @@ class Santaanita {
 
 			switch (userInput) {
 				case 'm':
-					System.out.println(getMenu());
-					break;
+				System.out.println(getMenu());
+				break;
 
 				case 'q':
-					System.out.println("Hasta luego");
-					break;
+				System.out.println("Hasta luego");
+				break;
 
 				case 'a':
-					System.out.println("escribe el numero de casa:");
-					casa = Lectura.readInt();
-					System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
+				System.out.println("escribe el numero de casa:");
+				familia = Lectura.readInt();
+				System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
 
-					mes = Lectura.readInt();
-					if (mes == 13) {
-						cargarFamilia(database, casa, mesesString);
-					} else if(mes == 0) {
-						cargarNombreFamilia(database, casa, mes);
-					} else if(mes > 0 && mes <= 12) {
-						cargarMesFamilia(database, casa, mes, mesesString);
-					}else {
-						System.out.println("Mes invalido");
-					}
+				mes = Lectura.readInt();
+				if (mes == 13) {
+					cargarFamilia(database, familia, mesesString);
+				} else if(mes == 0) {
+					cargarNombreFamilia(database, familia, mes);
+				} else if(mes > 0 && mes <= 12) {
+					cargarMesFamilia(database, familia, mes, mesesString);
+				}else {
+					System.out.println("Mes invalido");
+				}
 
-					break;
+				break;
 
 				case '1':
-					reporteAnual(database, mesesString);
-					break;
+				reporteAnual(database, mesesString);
+				break;
 
 				case '2':
-					System.out.println("escribe el numero de casa que desea ver:");
-					reporteFamilia(database, Lectura.readInt(), mesesString);
-					break;
+				reporteFamilia(database, mesesString);
+				break;
+
 				case '3':
-					System.out.println("escribe el numero de casa que desea ver:");
-					casa=Lectura.readInt();
-					deudaFamilia(database, casa, mes);
-					break;
+				deudaFamilia(database, familia, mes);
+				break;
+
 				case '4':
-					montoAnio(database);
-					break;
+				montoAnio(database, familia, mes);
+				break;
+
 				case '5':
-					montoMes(database);
-					break;
+				montoMes(database, familia, mes);
+				break;
+
 				case '6':
-					deudaMontoAnio(database, casa, mes);
-					break;
+				deudaMontoAnio(database, familia, mes);
+				break;
+
 				case '7':
-					deudaMontoMes(database);
-					break;
+				deudaMontoMes(database, familia, mes);
+				break;
+
+				case '8':
+				montoActual(database, familia, mes);
+				break;
 				default:
-					System.out.println(getMenu());
-					break;
+				System.out.println(getMenu());
+				break;
 			}
 		} while (userInput != 'q');
 	}
@@ -80,13 +86,14 @@ class Santaanita {
 		String menu;
 
 		menu = "Dar de alta informacion: a\n";
-		menu += "Reporte anual: 1\n";
-		menu += "Reporte por familia: 2\n";
-		menu += "Deudas por familia: 3\n";
-		menu += "Monto recaudado en el anio: 4\n";
-		menu += "Monto recaudado en el mes: 5\n";
-		menu += "Deudas total del anio en el anio: 6\n";
-		menu += "Deudas total en el mes: 7\n";
+		menu+= "Reporte anual: 1\n";
+		menu+= "Reporte por familia: 2\n";
+		menu+="Deuda por Familia: 3\n";
+		menu+="Monto recaudado en el año: 4\n";
+		menu+="Monto recaudado en el mes: 5\n";
+		menu+="Deuda total del año: 6\n";
+		menu+="Deuda total del mes: 7\n";
+		menu+="Monto pagado a la fecha por familia: 7\n";
 
 		menu += "Terminar el programa: q\n";
 
@@ -94,112 +101,154 @@ class Santaanita {
 	}
 
 	public static void reporteAnual(String database[][], String mesesString[]) {
-		for (int casa = 0; casa < 20 ; casa++) {
+		for (int familia = 0; familia < 20 ; familia++) {
 			for (int mes = 0; mes <= 12 ; mes++) {
 				if (mes == 0) {
-					System.out.println("\nFamilia: " + database[casa][mes]);
+					System.out.println("\nFamilia: " + database[familia][mes]);
 				} else {
-					System.out.println(mesesString[mes-1] + "\t \t$" + database[casa][mes]);
+					System.out.println(mesesString[mes-1] + "\t \t$" + database[familia][mes]);
+
 				}
 			}
 		}
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
-	public static void reporteFamilia(String database[][], int casa, String mesesString[]) {
+	public static void reporteFamilia(String database[][], String mesesString[]) {
+		System.out.println("escribe el numero de familia que desea ver:");
+		int familia=Lectura.readInt();
 		for (int mes = 0; mes <= 12 ; mes++) {
 			if (mes == 0) {
-				System.out.println("\nFamilia: " + database[casa][mes]);
+				System.out.println("\nFamilia: " + database[familia][mes]);
 			} else {
-				System.out.println(mesesString[mes-1] + "\t \t$" + database[casa][mes] + "\t deuda: " + (9500 -  Double.parseDouble(database[casa][mes])));
+				System.out.println(mesesString[mes-1] + "\t \t$" + database[familia][mes] + "\t deuda: " + (9500 -  Double.parseDouble(database[familia][mes])));
+				java.util.Date fecha = new Date();
+				System.out.println("\n\t"+fecha);
 			}
 		}
 	}
 
-	/////////   --- Double.parseDouble(database[casa][mes]) recordar
 
-	public static void cargarFamilia(String database[][], int casa, String mesesString[]) {
+	public static void cargarFamilia(String database[][], int familia, String mesesString[]) {
 		for (int mes = 0; mes <= 12 ; mes++) {
 			if (mes == 0) {
 				System.out.print("Ingrese el nombre de la familia: ");
-				database[casa][mes] = Lectura.readString();
+				database[familia][mes] = Lectura.readString();
 			} else {
 				System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
-				database[casa][mes] = Lectura.readString();
+				database[familia][mes] = Lectura.readString();
+				java.util.Date fecha = new Date();
+				System.out.println("\n\t"+fecha);
 			}
 		}
 	}
 
-	public static void cargarMesFamilia(String database[][], int casa, int mes, String mesesString[]) {
-			System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
-			database[casa][mes] = Lectura.readString();
+	public static void cargarMesFamilia(String database[][], int familia, int mes, String mesesString[]) {
+		System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
+		database[familia][mes] = Lectura.readString();
 	}
 
-	public static void cargarNombreFamilia(String database[][], int casa, int mes) {
-			System.out.print("Ingrese el nombre de la familia: ");
-			database[casa][mes] = Lectura.readString();
+	public static void cargarNombreFamilia(String database[][], int familia, int mes) {
+		System.out.print("Ingrese el nombre de la familia: ");
+		database[familia][mes] = Lectura.readString();
 	}
 
 	public static void cargarDatosDummy(String database[][]) {
 		database[0][0] = "familia";
 
-		for (int casa = 0; casa < 20 ; casa++) {
+		for (int familia = 0; familia < 20 ; familia++) {
 			for (int mes = 0; mes <= 12 ; mes++) {
 				if (mes == 0) {
-					database[casa][mes] = "familia " + casa;
+					database[familia][mes] = "familia " + familia;
 				} else {
-					database[casa][mes] = "0";
+					database[familia][mes] = "0";
 				}
 			}
 		}
 	}
 
-	public static void montoAnio(String database[][]) {
+	public static void deudaFamilia(String database[][],int familia, int mes){
+		System.out.println("escribe el numero de familia que desea ver:");
+		familia=Lectura.readInt();
+		double deuda=0;
+		for(mes=1;mes<13;mes++) {
+			if(Double.parseDouble(database[familia][mes])==0);
+			else if(Double.parseDouble(database[familia][mes])<9500)
+				deuda+=9500-Double.parseDouble(database[familia][mes]);
+
+		}
+		System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
+	}
+
+	public static void montoAnio(String database[][],int familia, int mes) {
 		int acum=0;
-		for (int i = 0; i < 20 ; i++) {
-			for (int j = 1; j <= 12 ; j++) {
-				acum+=Double.parseDouble(database[i][j]);
+		for (familia = 0; familia < 20 ; familia++) {
+			for (mes = 1; mes <= 12 ; mes++) {
+				acum+=Double.parseDouble(database[familia][mes]);
 			}
 		}
 		System.out.println("\nEl monto total recaudado del anio es $"+acum);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
-	public static void montoMes(String database[][]) {
+	public static void montoMes(String database[][],int familia, int mes) {
 		int acum=0;
 		System.out.println("Ingrese el mes");
-		int m=Lectura.readInt();
-		for (int i = 0; i < 20 ; i++) {
-			acum+=Double.parseDouble(database[i][m]);
+		mes=Lectura.readInt();
+		for (familia = 0; familia < 20 ; familia++) {
+			acum+=Double.parseDouble(database[familia][mes]);
 		}
-		System.out.println("\nEl monto total recaudado del mes "+m+" es $"+acum);
+		System.out.println("\nEl monto total recaudado del mes "+mes+" es $"+acum);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
 
-	public static void deudaMontoAnio(String database[][], int casa, int mes) {
+	public static void deudaMontoAnio(String database[][],int familia, int mes) {
 		double acum=0;
 		double deuda=0;
-		for(casa=0; casa<20; casa++){
+		for(familia=0; familia<20; familia++){
 			for(mes=1;mes<13;mes++) {
-				if(Double.parseDouble(database[casa][mes])==0);
-				else if(Double.parseDouble(database[casa][mes])<9500)
-					deuda+=9500-Double.parseDouble(database[casa][mes]);
+				if(Double.parseDouble(database[familia][mes])==0);
+				else if(Double.parseDouble(database[familia][mes])<9500)
+					deuda+=9500-Double.parseDouble(database[familia][mes]);
 				acum+=deuda;
 			}
-			casa++;
 		}
 		System.out.println("La deuda total del anio es de: $" +deuda);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
 
-	public static void deudaMontoMes(String database[][]) {
+	public static void deudaMontoMes(String database[][], int familia, int mes) {
 		double deuda=0;
 		System.out.println("Ingrese el mes");
-		int m=Lectura.readInt();
-		for(int i=0;i<20;i++) {
-			if(Double.parseDouble(database[i][m])==0);
-			else if(Double.parseDouble(database[i][m])<9500)
-				deuda+=9500-Double.parseDouble(database[i][m]);
+		mes=Lectura.readInt();
+		for(familia=0;familia<20;familia++) {
+			if(Double.parseDouble(database[familia][mes])==0);
+			else if(Double.parseDouble(database[familia][mes])<9500)
+				deuda+=9500-Double.parseDouble(database[familia][mes]);
 		}
-		System.out.println("La deuda total del mes " +m +" es de: $" +deuda);
+		System.out.println("La deuda total del mes " +mes +" es de: $" +deuda);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
+	}
+
+
+	public static void montoActual(String database[][],int familia, int mes) {
+		System.out.println("Ingrese la familia de la que desea obtener los datos");
+		familia=Lectura.readInt();
+		int acum=0;
+		for(mes=1;mes<=12;mes++)
+			acum+=Double.parseDouble(database[familia][mes]);
+		System.out.println("El total pagado a la fecha por la familia "+(database[familia][0])+" es de $"+acum);
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 }
 
