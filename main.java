@@ -27,7 +27,7 @@ class Santaanita {
 				break;
 
 				case 'a':
-				System.out.println("escribe el numero de casa:");
+				System.out.println("escribe el numero de familia:");
 				familia = Lectura.readInt();
 				System.out.println("escribe el mes que desea ingresar: \n13 para ingresar toda la informacion de la familia\n 0 para ingresar el nombre de la familia");
 
@@ -173,9 +173,8 @@ class Santaanita {
 		familia=Lectura.readInt();
 		double deuda=0;
 		for(mes=1;mes<13;mes++) {
-			if(Double.parseDouble(database[familia][mes])==0);
-			else if(Double.parseDouble(database[familia][mes])<9500)
-				deuda+=9500-Double.parseDouble(database[familia][mes]);
+				if(Double.parseDouble(database[familia][mes])<9500)
+				deuda+= (9500-Double.parseDouble(database[familia][mes]));
 
 		}
 		System.out.println("La deuda de la familia "+database[familia][0]+" es "+deuda);
