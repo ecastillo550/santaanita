@@ -123,10 +123,10 @@ class Santaanita {
 				System.out.println("\nFamilia: " + database[familia][mes]);
 			} else {
 				System.out.println(mesesString[mes-1] + "\t \t$" + database[familia][mes] + "\t deuda: " + (9500 -  Double.parseDouble(database[familia][mes])));
-				java.util.Date fecha = new Date();
-				System.out.println("\n\t"+fecha);
 			}
 		}
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
 
@@ -138,10 +138,10 @@ class Santaanita {
 			} else {
 				System.out.print("Ingrese el monto pagado en " + mesesString[mes-1] + ": " );
 				database[familia][mes] = Lectura.readString();
-				java.util.Date fecha = new Date();
-				System.out.println("\n\t"+fecha);
 			}
 		}
+		java.util.Date fecha = new Date();
+		System.out.println("\n\t"+fecha);
 	}
 
 	public static void cargarMesFamilia(String database[][], int familia, int mes, String mesesString[]) {
